@@ -9,27 +9,29 @@
 <body class="bg-slate-50 text-slate-800 p-4 md:p-8">
 
     <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
+        <!-- Header avec Image Intégrée -->
         <div class="bg-slate-900 text-white p-6 flex flex-col sm:flex-row items-center gap-6">
             <img src="mousenpups.png" alt="Souris AIVC" class="w-32 h-20 object-cover rounded-lg border border-slate-700 bg-slate-800 shrink-0">
             <div>
                 <h1 class="text-xl font-bold">Calculateur & Planificateur de Croisements Souris</h1>
-                <p class="text-sm text-slate-400 mt-1">Gestion des cages en duo ou trio</p>
+                <p class="text-sm text-slate-400 mt-1">Gestion flexible des cages d'accouplement — Lignée AIVC</p>
             </div>
         </div>
 
         <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Formulaire Inputs -->
             <div class="md:col-span-1 space-y-4 bg-slate-50 p-4 rounded-lg border border-slate-200">
                 <h2 class="font-semibold text-slate-700 text-sm uppercase tracking-wider">Paramètres de la Cohorte</h2>
-
+                
                 <div>
                     <label class="block text-xs font-medium text-slate-600 mb-1">Nombre d'animaux requis</label>
-                    <input type="number" id="quantity" placeholder="Ex: 40" min="1" class="w-full p-2 border border-slate-300 rounded bg-white">
+                    <input type="number" id="quantity" value="40" min="1" class="w-full p-2 border border-slate-300 rounded bg-white">
                 </div>
 
                 <div>
                     <label class="block text-xs font-medium text-slate-600 mb-1">Sexe recherché</label>
                     <select id="sex" class="w-full p-2 border border-slate-300 rounded bg-white">
-                        <option value="females">Femelles uniquement</option>
+                        <option value="females" selected>Femelles uniquement</option>
                         <option value="males">Mâles uniquement</option>
                         <option value="both">Total mixte (50% M / 50% F)</option>
                     </select>
@@ -38,51 +40,62 @@
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block text-xs font-medium text-slate-600 mb-1">Âge min (sem.)</label>
-                        <input type="number" id="ageMin" placeholder="Ex: 6" min="0" class="w-full p-2 border border-slate-300 rounded bg-white">
+                        <input type="number" id="ageMin" value="6" min="0" class="w-full p-2 border border-slate-300 rounded bg-white">
                     </div>
                     <div>
                         <label class="block text-xs font-medium text-slate-600 mb-1">Âge max (sem.)</label>
-                        <input type="number" id="ageMax" placeholder="Ex: 8" min="0" class="w-full p-2 border border-slate-300 rounded bg-white">
+                        <input type="number" id="ageMax" value="8" min="0" class="w-full p-2 border border-slate-300 rounded bg-white">
                     </div>
+                </div>
+
+                <!-- NOUVEAU : Nombre de mères par cage ajustable -->
+                <div>
+                    <label class="block text-xs font-medium text-slate-600 mb-1">Nombre de mères par cage</label>
+                    <input type="number" id="femalesPerCage" value="2" min="1" max="5" class="w-full p-2 border border-slate-300 rounded bg-emerald-50 font-semibold text-emerald-900 border-emerald-300">
+                    <p class="text-[10px] text-slate-500 mt-0.5">Généralement 1 (Duo) ou 2 (Trio).</p>
                 </div>
 
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block text-xs font-medium text-slate-600 mb-1">Semaine cible</label>
-                        <input type="number" id="targetWeek" placeholder="Ex: 38" min="1" max="53" class="w-full p-2 border border-slate-300 rounded bg-white">
+                        <input type="number" id="targetWeek" value="38" min="1" max="53" class="w-full p-2 border border-slate-300 rounded bg-white">
                     </div>
                     <div>
                         <label class="block text-xs font-medium text-slate-600 mb-1">Année cible</label>
-                        <input type="number" id="targetYear" placeholder="Ex: 2026" class="w-full p-2 border border-slate-300 rounded bg-white">
+                        <input type="number" id="targetYear" value="2026" class="w-full p-2 border border-slate-300 rounded bg-white">
                     </div>
                 </div>
             </div>
 
+            <!-- Résultats & Planning -->
             <div class="md:col-span-2 space-y-6">
+                <!-- Besoins d'élevage -->
                 <div>
-                    <h2 class="font-semibold text-slate-700 text-sm uppercase tracking-wider mb-3">Besoins en Élevage (Trios)</h2>
+                    <h2 class="font-semibold text-slate-700 text-sm uppercase tracking-wider mb-3">Besoins en Élevage</h2>
                     <div class="grid grid-cols-3 gap-4">
-                        <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 text-center">
-                            <span class="block text-2xl font-bold text-slate-400" id="resCages">-</span>
-                            <span class="text-xs text-slate-500 font-medium">Cages d'accouplement</span>
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+                            <span class="block text-2xl font-bold text-blue-900" id="resCages">-</span>
+                            <span class="text-xs text-blue-700 font-medium">Cages nécessaires</span>
                         </div>
-                        <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 text-center">
-                            <span class="block text-xl font-semibold text-slate-400" id="resMales">-</span>
-                            <span class="text-xs text-slate-500">Mâles requis</span>
+                        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-center">
+                            <span class="block text-xl font-semibold text-slate-800" id="resMales">-</span>
+                            <span class="text-xs text-slate-600">Mâles requis (1/cage)</span>
                         </div>
-                        <div class="bg-slate-100 border border-slate-200 rounded-lg p-4 text-center">
-                            <span class="block text-xl font-semibold text-slate-400" id="resFemales">-</span>
-                            <span class="text-xs text-slate-500">Femelles requises</span>
+                        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-center">
+                            <span class="block text-xl font-semibold text-slate-800" id="resFemales">-</span>
+                            <span class="text-xs text-slate-600">Mères requises</span>
                         </div>
                     </div>
                 </div>
 
-                <div id="optimizationBadge" class="hidden p-3 rounded-lg text-sm border"></div>
+                <!-- Statut Optimisation -->
+                <div id="optimizationBadge" class="p-3 rounded-lg text-sm border"></div>
 
+                <!-- Calendrier de rétroplanning -->
                 <div>
                     <h2 class="font-semibold text-slate-700 text-sm uppercase tracking-wider mb-3">Rétroplanning Chronologique</h2>
                     <div class="relative border-l border-slate-200 ml-4 space-y-6" id="timelineContainer">
-                        <p class="text-slate-400 text-sm italic">Veuillez remplir tous les paramètres à gauche pour générer automatiquement le rétroplanning.</p>
+                        <!-- Rempli en JS -->
                     </div>
                 </div>
             </div>
@@ -106,47 +119,27 @@
         }
 
         function calculate() {
-            // Lecture des inputs bruts
-            const qtyRaw = document.getElementById('quantity').value;
-            const ageMinRaw = document.getElementById('ageMin').value;
-            const ageMaxRaw = document.getElementById('ageMax').value;
-            const targetWeekRaw = document.getElementById('targetWeek').value;
-            const targetYearRaw = document.getElementById('targetYear').value;
+            const qty = parseInt(document.getElementById('quantity').value) || 0;
             const sex = document.getElementById('sex').value;
+            const ageMin = parseInt(document.getElementById('ageMin').value) || 0;
+            const ageMax = parseInt(document.getElementById('ageMax').value) || 0;
+            const femalesPerCage = parseInt(document.getElementById('femalesPerCage').value) || 1;
+            const targetWeek = parseInt(document.getElementById('targetWeek').value) || 1;
+            const targetYear = parseInt(document.getElementById('targetYear').value) || 2026;
 
-            const badge = document.getElementById('optimizationBadge');
-            const timeline = document.getElementById('timelineContainer');
-
-            // Si un des champs essentiels est vide, on réinitialise l'affichage à l'état vierge
-            if (!qtyRaw || !ageMinRaw || !ageMaxRaw || !targetWeekRaw || !targetYearRaw) {
-                document.getElementById('resCages').innerText = "-";
-                document.getElementById('resMales').innerText = "-";
-                document.getElementById('resFemales').innerText = "-";
-                badge.className = "hidden";
-                timeline.innerHTML = "<p class='text-slate-400 text-sm italic'>Veuillez remplir tous les paramètres à gauche pour générer automatiquement le rétroplanning.</p>";
-                return;
-            }
-
-            const qty = parseInt(qtyRaw);
-            const ageMin = parseInt(ageMinRaw);
-            const ageMax = parseInt(ageMaxRaw);
-            const targetWeek = parseInt(targetWeekRaw);
-            const targetYear = parseInt(targetYearRaw);
-
-            // Vérification de sécurité sur la cohérence des âges
             if(ageMin > ageMax) {
-                badge.className = "p-3 rounded-lg text-sm border bg-red-50 border-red-200 text-red-700 block";
-                badge.innerHTML = "⚠️ <strong>Erreur :</strong> L'âge minimum ne peut pas être supérieur à l'âge maximum.";
-                timeline.innerHTML = "";
+                document.getElementById('optimizationBadge').className = "p-3 rounded-lg text-sm border bg-red-50 border-red-200 text-red-700";
+                document.getElementById('optimizationBadge').innerText = "Erreur : L'âge minimum ne peut pas être supérieur à l'âge maximum.";
                 return;
             }
 
-            const pupsPerLitter = 6;
-            const sexPerLitter = 3;
-            const gestationWeeks = 3;
-            const weaningWeeks = 3;
-
-            let usefulPupsPerCagePerWave = (sex === 'both') ? (pupsPerLitter * 2) : (sexPerLitter * 2);
+            const pupsPerLitter = 6; 
+            const sexPerLitter = 3;  
+            const gestationWeeks = 3; 
+            const weaningWeeks = 3; 
+            
+            // Calcul du rendement par vague basé sur le nombre dynamique de mères par cage
+            let usefulPupsPerCagePerWave = (sex === 'both') ? (pupsPerLitter * femalesPerCage) : (sexPerLitter * femalesPerCage);
 
             const ageSpan = ageMax - ageMin;
             const canOptimizePostPartum = ageSpan >= 3;
@@ -155,35 +148,34 @@
             const totalUsefulPupsPerCage = usefulPupsPerCagePerWave * totalWaves;
             const cagesNeeded = Math.ceil(qty / totalUsefulPupsPerCage);
 
-            // Mise à jour des compteurs avec les classes de couleur actives
-            document.getElementById('resCages').innerText = cagesNeeded;
-            document.getElementById('resCages').className = "block text-2xl font-bold text-blue-900";
-            document.getElementById('resMales').innerText = cagesNeeded;
-            document.getElementById('resMales').className = "block text-xl font-semibold text-slate-800";
-            document.getElementById('resFemales').innerText = cagesNeeded * 2;
-            document.getElementById('resFemales').className = "block text-xl font-semibold text-slate-800";
+            // Mise à jour de l'affichage des besoins
+            document.getElementById('resCages').innerText = cagesNeeded || 0;
+            document.getElementById('resMales').innerText = cagesNeeded || 0; // 1 mâle par cage
+            document.getElementById('resFemales').innerText = (cagesNeeded * femalesPerCage) || 0;
 
+            const badge = document.getElementById('optimizationBadge');
             if (canOptimizePostPartum) {
-                badge.className = "p-3 rounded-lg text-sm border bg-emerald-50 border-emerald-200 text-emerald-800 font-medium block";
-                badge.innerHTML = "✨ <strong>Optimisation Post-Partum active :</strong> Les couples de portées s'enchaînent (2 vagues successives de 2 portées par cage).";
+                badge.className = "p-3 rounded-lg text-sm border bg-emerald-50 border-emerald-200 text-emerald-800 font-medium";
+                badge.innerHTML = `✨ <strong>Optimisation Post-Partum active :</strong> Les vagues de portées s'enchaînent (2 vagues successives de ${femalesPerCage} portées simultanées par cage).`;
             } else {
-                badge.className = "p-3 rounded-lg text-sm border bg-slate-100 border-slate-200 text-slate-700 block";
-                badge.innerHTML = "ℹ️ <strong>Mode standard :</strong> Fenêtre d'âge étroite. On ne garde qu'une seule vague de naissances (2 portées simultanées par cage).";
+                badge.className = "p-3 rounded-lg text-sm border bg-slate-50 border-slate-200 text-slate-700";
+                badge.innerHTML = `ℹ️ <strong>Mode standard :</strong> Fenêtre d'âge étroite. Une seule vague de naissances (${femalesPerCage} portée(s) simultanée(s) par cage).`;
             }
 
+            const timeline = document.getElementById('timelineContainer');
             timeline.innerHTML = "";
 
             if (canOptimizePostPartum) {
                 const birthWeek1 = targetWeek - ageMax;
                 const matingWeek = birthWeek1 - gestationWeeks;
-                const birthWeek2 = birthWeek1 + 3;
+                const birthWeek2 = birthWeek1 + 3; 
                 const weaningWeek2 = birthWeek2 + weaningWeeks;
 
-                addTimelineEvent("Lancement des accouplements", matingWeek, targetYear, "Mise en cage des trios (1M + 2F).", "bg-blue-500");
-                addTimelineEvent("Naissances - Vague 1", birthWeek1, targetYear, "<strong>2 portées simultanées par cage</strong> (1 par femelle). Saillie post-partum immédiate automatique pour les deux femelles.", "bg-violet-500");
-                addTimelineEvent("Sevrage Vague 1 / Naissances Vague 2", birthWeek2, targetYear, "<strong>Double action requise :</strong> Sevrage obligatoire des 2 portées de la Vague 1 (J21) ET naissance des <strong>2 nouvelles portées simultanées</strong> de la Vague 2.", "bg-amber-500");
-                addTimelineEvent("Sevrage Vague 2", weaningWeek2, targetYear, "Sevrage obligatoire des 2 portées de la Vague 2 (J21) et sexage.", "bg-orange-500");
-                addTimelineEvent("Date Cible & Expérience", targetWeek, targetYear, `Votre cohorte complète est prête (${qty} animaux au total issus des 2 vagues de naissances jointes).`, "bg-slate-900");
+                addTimelineEvent("Lancement des accouplements", matingWeek, targetYear, `Mise en cage des reproducteurs (1 mâle + ${femalesPerCage} femelle(s) par cage).`, "bg-blue-500");
+                addTimelineEvent("Naissances - Vague 1", birthWeek1, targetYear, `<strong>${femalesPerCage} portée(s) simultanée(s) par cage</strong> (1 par femelle). Saillie post-partum immédiate automatique pour toutes les mères de la cage.`, "bg-violet-500");
+                addTimelineEvent("Sevrage Vague 1 / Naissances Vague 2", birthWeek2, targetYear, `<strong>Double action requise :</strong> Sevrage obligatoire des ${femalesPerCage} portées de la Vague 1 (J21) ET naissance simultanée des <strong>${femalesPerCage} nouvelles portées</strong> de la Vague 2.`, "bg-amber-500");
+                addTimelineEvent("Sevrage Vague 2", weaningWeek2, targetYear, `Sevrage obligatoire des ${femalesPerCage} portées de la Vague 2 (J21), identification et sexage.`, "bg-orange-500");
+                addTimelineEvent("Date Cible & Expérience", targetWeek, targetYear, `Votre cohorte complète est prête (${qty} animaux au total issus des 2 vagues cumulées).`, "bg-slate-900");
 
             } else {
                 const minMatingWeek = targetWeek - ageMax - gestationWeeks;
@@ -193,9 +185,9 @@
                 const minWeanWeek = minBirthWeek + weaningWeeks;
                 const maxWeanWeek = maxBirthWeek + weaningWeeks;
 
-                addTimelineEventRange("Lancement des accouplements", minMatingWeek, maxMatingWeek, targetYear, "Mise en cage des trios (1M + 2F).", "bg-blue-500");
-                addTimelineEventRange("Fenêtre des Naissances", minBirthWeek, maxBirthWeek, targetYear, "Mises bas attendues (Chaque femelle fait sa portée, soit <strong>2 portées simultanées par cage</strong>).", "bg-violet-500");
-                addTimelineEventRange("Fenêtre obligatoire de Sevrage (J21)", minWeanWeek, maxWeanWeek, targetYear, "Séparation simultanée des deux portées de la cage, identification et sexage.", "bg-amber-500");
+                addTimelineEventRange("Lancement des accouplements", minMatingWeek, maxMatingWeek, targetYear, `Mise en cage des reproducteurs (1 mâle + ${femalesPerCage} femelle(s) par cage).`, "bg-blue-500");
+                addTimelineEventRange("Fenêtre des Naissances", minBirthWeek, maxBirthWeek, targetYear, `Mises bas attendues (Chaque femelle fait sa portée, soit <strong>${femalesPerCage} portée(s) simultanée(s) par cage</strong>).`, "bg-violet-500");
+                addTimelineEventRange("Fenêtre obligatoire de Sevrage (J21)", minWeanWeek, maxWeanWeek, targetYear, `Séparation simultanée des ${femalesPerCage} portées de la cage, identification et sexage.`, "bg-amber-500");
                 addTimelineEvent("Date Cible & Expérience", targetWeek, targetYear, `Votre cohorte est prête (${qty} animaux au total, âgés de ${ageMin} à ${ageMax} semaines).`, "bg-slate-900");
             }
         }
@@ -216,10 +208,10 @@
             const dateMin = getDateOfISOWeek(minWeek, year);
             const dateMax = getDateOfISOWeek(maxWeek, year);
             const container = document.getElementById('timelineContainer');
-            let timeText = minWeek === maxWeek ?
-                `Semaine ${minWeek} — (Lundi ${formatDate(dateMin)})` :
+            let timeText = minWeek === maxWeek ? 
+                `Semaine ${minWeek} — (Lundi ${formatDate(dateMin)})` : 
                 `De Sem. ${minWeek} (${formatDate(dateMin)}) à Sem. ${maxWeek} (${formatDate(dateMax)})`;
-
+            
             container.innerHTML += `
                 <div class="mb-6 ml-6">
                     <span class="absolute flex items-center justify-center w-4 h-4 rounded-full -left-2 ring-4 ring-white ${colorClass}"></span>
@@ -229,12 +221,10 @@
                 </div>`;
         }
 
-        // Déclenchement automatique dès qu'une touche est relâchée ou un choix modifié
+        // Écouteur global pour recalculer en temps réel dès qu'une valeur change
         document.querySelectorAll('input, select').forEach(element => {
             element.addEventListener('input', calculate);
         });
-
-        // Initialisation à blanc au chargement
         calculate();
     </script>
 </body>
